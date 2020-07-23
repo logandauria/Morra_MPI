@@ -1,0 +1,18 @@
+SOURCE_FILE=Morra.cpp
+OUTPUT_FILE=Morra
+
+morramake: ${SOURCE_FILE}
+        mpic++ -std=c++11  ${SOURCE_FILE} -o ${OUTPUT_FILE}
+
+clean:
+        rm ${OUTPUT_FILE}
+
+run_local:
+        mpiexec -n 16 ./${OUTPUT_FILE}
+
+run_cluster:
+        mpiexec --hostfile ./hostfile -n 16 ./${OUTPUT_FILE}
+
+run_round_robin:
+        mpiexec --map-by node:SPAN --hostfile ./hostfile -n 16 ./${OUTPUT_FILE}
+
